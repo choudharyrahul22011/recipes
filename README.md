@@ -1,27 +1,47 @@
 # Recipe
+--------------
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.3.
+Feature : Recipes & Shopping List
 
-## Development server
+Component: Recipes
+Recipe List will come on left panel
+Recipe Detail will come on right panel
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Under Recipe List we going to have Recipe Item or Single Item
 
-## Code scaffolding
+Component: Shopping List
+Shopping List will come
+Under Shopping List we going to have Shopping Item or Single Item
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Edit:
+1. Click on list you want to edit (click)="onEditItem(i)"
+2. Get index number on which index you clicked 
+	onEditItem(index: number) {
+    this.shoppingListService.startEditing.next(index);
+  }
+3. startEditing = new Subject<number>();
+4. this.subscription = this.shoppingListService.startEditing.subscribe(
+      (index: number) => {
+        this.editedItemIndex = index;
+        this.editMode = true;
+        this.editedItem = this.shoppingListService.getIngredientByIndex(index);
 
-## Build
+        this.shoppingListForm.setValue({
+          name: this.editedItem.name,
+          amount: this.editedItem.amount,
+        });
+      }
+    );
+5. updateIngredient(index: number, newIngredient: Ingredient) {
+    this.ingredients[index] = newIngredient;
+    this.ingredientsChanged.next(this.ingredients.slice());
+  }
+  
+  
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+  
+Forms:
+1. FormsArray will have Multiple FormGroup 
+2. FormGroup will have FormControl
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+ 
