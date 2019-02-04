@@ -7,11 +7,9 @@ import {Recipe} from '../recipes/recipe.model';
 })
 export class RecipesDataStorageService {
   recipes: Recipe[] = [];
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   getRecipes() {
-
-
-
+    return this.http.get("http://localhost:8080/recipes");
   }
 }

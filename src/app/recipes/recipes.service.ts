@@ -11,17 +11,13 @@ import {HttpClient} from '@angular/common/http';
 export class RecipesService implements OnInit{
   private recipes: Recipe[];
 
-  constructor(private shoppingListService: ShoppingListService, private recipeData: RecipesDataStorageService, private http: HttpClient) { }
+  constructor(private shoppingListService: ShoppingListService, private recipeData: RecipesDataStorageService) { }
 
   ngOnInit(): void {
   }
 
   getRecipes() {
-    this.http.get("http://localhost:8080/recipes").subscribe(
-      (recipes: Recipe[]) => {
-        this.recipes = recipes;
-      }
-    );
+    return this.recipes;
   }
 
   getRecipeByIndex(index: number) {
